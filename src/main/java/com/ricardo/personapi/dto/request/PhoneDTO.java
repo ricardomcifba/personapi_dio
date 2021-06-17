@@ -1,5 +1,10 @@
 package com.ricardo.personapi.dto.request;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import com.ricardo.personapi.enums.PhoneType;
 
 import lombok.AllArgsConstructor;
@@ -12,11 +17,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PhoneDTO {
-	
-	private Long id;
-	
-	private PhoneType type;
-	
-	private String number;
 
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private PhoneType type;
+
+    @NotEmpty
+    @Size(min = 13, max = 14)
+    private String number;
 }
