@@ -1,5 +1,7 @@
 package com.ricardo.personapi.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ricardo.personapi.dto.request.PersonDTO;
 import com.ricardo.personapi.dto.response.MessageResponseDTO;
-import com.ricardo.personapi.entities.Person;
 import com.ricardo.personapi.service.PersonService;
 
 @RestController
@@ -17,21 +19,18 @@ import com.ricardo.personapi.service.PersonService;
 public class PersonController {
 	
 	
-	private PersonService personService;;
+	private PersonService personService;
 	
 	@Autowired
-	public PersonController(PersonService personService) {
-		
-		this.personService = personService;
-		
+	public PersonController(PersonService personService) {		
+		this.personService = personService;		
 	}
 	
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageResponseDTO createPerson(@RequestBody Person person) {
-		
-		return personService.createPerson(person);	
+	public MessageResponseDTO createPerson(@RequestBody @Valid PersonDTO personDTO) {
+		return personService.createPerson(personDTO);	
 		
 	}
 	
